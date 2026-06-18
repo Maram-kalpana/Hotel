@@ -1,0 +1,151 @@
+{
+  "occupancyTrend": [
+    {
+      "month": "Jan",
+      "occupancy": 62,
+      "revenue": 420000
+    },
+    {
+      "month": "Feb",
+      "occupancy": 68,
+      "revenue": 480000
+    },
+    {
+      "month": "Mar",
+      "occupancy": 71,
+      "revenue": 510000
+    },
+    {
+      "month": "Apr",
+      "occupancy": 75,
+      "revenue": 540000
+    },
+    {
+      "month": "May",
+      "occupancy": 78,
+      "revenue": 580000
+    },
+    {
+      "month": "Jun",
+      "occupancy": 82,
+      "revenue": 620000
+    }
+  ],
+  "revenueTrend": [
+    {
+      "month": "Jan",
+      "revenue": 420000,
+      "bookings": 38
+    },
+    {
+      "month": "Feb",
+      "revenue": 480000,
+      "bookings": 42
+    },
+    {
+      "month": "Mar",
+      "revenue": 510000,
+      "bookings": 45
+    },
+    {
+      "month": "Apr",
+      "revenue": 540000,
+      "bookings": 48
+    },
+    {
+      "month": "May",
+      "revenue": 580000,
+      "bookings": 52
+    },
+    {
+      "month": "Jun",
+      "revenue": 620000,
+      "bookings": 55
+    }
+  ],
+  "roomUtilization": [
+    {
+      "type": "Single",
+      "utilized": 79,
+      "total": 12
+    },
+    {
+      "type": "Double",
+      "utilized": 71,
+      "total": 12
+    },
+    {
+      "type": "Family",
+      "utilized": 55,
+      "total": 13
+    },
+    {
+      "type": "Dormitory",
+      "utilized": 84,
+      "total": 13
+    }
+  ],
+  "bookingTrend": [
+    {
+      "week": "W1",
+      "bookings": 12
+    },
+    {
+      "week": "W2",
+      "bookings": 18
+    },
+    {
+      "week": "W3",
+      "bookings": 15
+    },
+    {
+      "week": "W4",
+      "bookings": 22
+    },
+    {
+      "week": "W5",
+      "bookings": 19
+    },
+    {
+      "week": "W6",
+      "bookings": 25
+    }
+  ],
+  "recentActivity": [
+    {
+      "id": 1,
+      "type": "booking",
+      "message": "New booking for Room 102 - Bed 2",
+      "time": "2 mins ago",
+      "user": "Admin"
+    },
+    {
+      "id": 2,
+      "type": "checkin",
+      "message": "Check-in completed for Priya Sharma",
+      "time": "15 mins ago",
+      "user": "Reception"
+    },
+    {
+      "id": 3,
+      "type": "checkout",
+      "message": "Check-out completed for Room 305",
+      "time": "1 hour ago",
+      "user": "Reception"
+    },
+    {
+      "id": 4,
+      "type": "booking",
+      "message": "New booking for Room 401 - Bed 1",
+      "time": "2 hours ago",
+      "user": "Admin"
+    },
+    {
+      "id": 5,
+      "type": "checkin",
+      "message": "Check-in completed for Rahul Singh",
+      "time": "3 hours ago",
+      "user": "Reception"
+    }
+  ]
+}

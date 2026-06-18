@@ -1,0 +1,8 @@
+export { default as floors } from './floors.json'
+export { default as rooms } from './rooms.json'
+export { default as beds } from './beds.json'
+export { default as customers } from './customers.json'
+export { default as bookings } from './bookings.json'
+export { default as analytics } from './analytics.json'
+export { default as hotelSettings } from './hotelSettings.json'
+export { default as stats } from './stats.json'

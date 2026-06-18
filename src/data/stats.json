@@ -1,0 +1,13 @@
+{
+  "totalFloors": 5,
+  "totalRooms": 50,
+  "totalBeds": 200,
+  "occupiedBeds": 40,
+  "vacantBeds": 150,
+  "reservedBeds": 10,
+  "totalCustomers": 100,
+  "revenue": 86080,
+  "pendingPayments": 129120,
+  "todayCheckIns": 8,
+  "todayCheckOuts": 5
+}

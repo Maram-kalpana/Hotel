@@ -1,0 +1,37 @@
+[
+  {
+    "id": "floor-1",
+    "name": "Floor 1",
+    "number": 1,
+    "totalRooms": 10,
+    "description": "Luxury accommodation on floor 1"
+  },
+  {
+    "id": "floor-2",
+    "name": "Floor 2",
+    "number": 2,
+    "totalRooms": 10,
+    "description": "Luxury accommodation on floor 2"
+  },
+  {
+    "id": "floor-3",
+    "name": "Floor 3",
+    "number": 3,
+    "totalRooms": 10,
+    "description": "Luxury accommodation on floor 3"
+  },
+  {
+    "id": "floor-4",
+    "name": "Floor 4",
+    "number": 4,
+    "totalRooms": 10,
+    "description": "Luxury accommodation on floor 4"
+  },
+  {
+    "id": "floor-5",
+    "name": "Floor 5",
+    "number": 5,
+    "totalRooms": 10,
+    "description": "Luxury accommodation on floor 5"
+  }
+]
