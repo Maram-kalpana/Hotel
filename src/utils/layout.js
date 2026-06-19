@@ -8,7 +8,7 @@ export const NAVBAR_HEIGHT = 70
 export const DRAWER_VARIANTS = {
   room: 450,
   booking: 550,
-  customer: 500,
+  customer: 560,
   income: 500,
 }
 

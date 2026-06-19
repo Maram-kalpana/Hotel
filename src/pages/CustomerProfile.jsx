@@ -5,7 +5,7 @@ import PageTransition from '../components/PageTransition'
 import ProfileCard from '../components/ProfileCard'
 import DataTable from '../components/DataTable'
 import { useCustomers, useBookings } from '../hooks/useStore'
-import { formatCurrency, formatDate } from '../utils/helpers'
+import { formatCurrency, formatDate, displayValue } from '../utils/helpers'
 
 const CustomerProfile = () => {
   const { id } = useParams()
@@ -58,7 +58,7 @@ const CustomerProfile = () => {
                     ].map(([label, value]) => (
                       <div key={label} className="p-4 rounded-xl bg-slate-50">
                         <p className="text-xs text-slate-500">{label}</p>
-                        <p className="font-medium text-slate-900 capitalize mt-1">{value}</p>
+                        <p className="font-medium text-slate-900 capitalize mt-1">{displayValue(value)}</p>
                       </div>
                     ))}
                   </div>

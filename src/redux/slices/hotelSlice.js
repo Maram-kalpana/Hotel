@@ -10,14 +10,20 @@ const recalcStats = (state) => {
   state.stats.reservedBeds = state.beds.filter((b) => b.status === 'reserved').length
 }
 
-const hotelSlice = createSlice({
-  name: 'hotel',
-  initialState: {
+const buildInitialHotelState = () => {
+  const state = {
     floors: floorsData,
     rooms: roomsData,
     beds: bedsData,
-    stats: statsData,
-  },
+    stats: { ...statsData },
+  }
+  recalcStats(state)
+  return state
+}
+
+const hotelSlice = createSlice({
+  name: 'hotel',
+  initialState: buildInitialHotelState(),
   reducers: {
     addFloor: (state, action) => {
       state.floors.push(action.payload)

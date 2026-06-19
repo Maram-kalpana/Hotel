@@ -10,9 +10,9 @@ import { combineDateAndTime, splitDateTime } from '../components/DateTimeSplitFi
 import PaymentStatusBadge from '../components/PaymentStatusBadge'
 import DateTimeStack from '../components/DateTimeStack'
 import BookingForm from '../components/BookingForm'
-import BookingViewModal from '../components/BookingViewModal'
 import BookingEditForm from '../components/BookingEditForm'
-import { useAuth, useAppDispatch, useHotel, useBookings, useCustomers } from '../hooks/useStore'
+import CustomerDetailCards from '../components/CustomerDetailCards'
+import { useAuth, useAppDispatch, useHotel, useBookings, useCustomers, useMonthlyPayments } from '../hooks/useStore'
 import { addCustomer, updateCustomer } from '../redux/slices/customerSlice'
 import { addBooking, updateBooking, deleteBooking } from '../redux/slices/bookingSlice'
 import { updateBed } from '../redux/slices/hotelSlice'
@@ -34,6 +34,7 @@ const BookingsContent = () => {
   const { floors, rooms, beds } = useHotel()
   const { list: bookings } = useBookings()
   const { list: customers } = useCustomers()
+  const { tenants } = useMonthlyPayments()
   const dispatch = useAppDispatch()
 
   const [drawerOpen, setDrawerOpen] = useState(false)
@@ -386,6 +387,8 @@ const BookingsContent = () => {
   ]
 
   const viewCustomer = viewBooking ? customers.find((c) => c.id === viewBooking.customerId) : null
+  const viewBed = viewBooking ? beds.find((b) => b.id === viewBooking.bedId) : null
+  const viewMonthly = viewBooking ? tenants.find((t) => t.customerId === viewBooking.customerId) : null
 
   return (
     <>
@@ -410,12 +413,22 @@ const BookingsContent = () => {
         <BookingForm floors={floors} rooms={rooms} beds={beds} onSubmit={handleSubmit} onCancel={() => setDrawerOpen(false)} />
       </RightDrawer>
 
-      <BookingViewModal
+      <RightDrawer
         open={!!viewBooking}
         onClose={() => setViewBooking(null)}
-        booking={viewBooking}
-        customer={viewCustomer}
-      />
+        title={`Booking Details — ${viewCustomer?.name || viewBooking?.customerName || ''}`}
+        variant="customer"
+        footer={<Button onClick={() => setViewBooking(null)} sx={{ height: 44 }}>Close</Button>}
+      >
+        {viewCustomer && viewBooking && (
+          <CustomerDetailCards
+            customer={viewCustomer}
+            booking={viewBooking}
+            bed={viewBed}
+            monthlyTenant={viewMonthly}
+          />
+        )}
+      </RightDrawer>
 
       <Dialog open={!!editBooking} onClose={() => { setEditBooking(null); setEditForm(emptyEditForm) }} fullScreen>
         <DialogTitle sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', py: 2, px: 3 }}>

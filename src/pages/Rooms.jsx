@@ -1,15 +1,13 @@
 import { useState, useMemo } from 'react'
 import { TextField, Button, IconButton, MenuItem } from '@mui/material'
-import { Plus, Pencil, Trash2, Eye, Search } from 'lucide-react'
+import { Plus, Pencil, Trash2, Search } from 'lucide-react'
 import PageTransition from '../components/PageTransition'
 import MuiDataGrid from '../components/MuiDataGrid'
 import RightDrawer from '../components/RightDrawer'
 import DrawerFormStack from '../components/DrawerFormStack'
-import DrawerDetailItem from '../components/DrawerDetailItem'
-import StatusBadge from '../components/StatusBadge'
 import { useHotel, useAppDispatch } from '../hooks/useStore'
 import { addRoom, updateRoom, deleteRoom } from '../redux/slices/hotelSlice'
-import { formatCurrency, getRoomCostPerBed, getRoomStatus } from '../utils/helpers'
+import { formatCurrency, getRoomCostPerBed, displayValue } from '../utils/helpers'
 import { fieldSx, primaryButtonSx } from '../utils/layout'
 import toast from 'react-hot-toast'
 
@@ -28,7 +26,6 @@ const Rooms = () => {
   const dispatch = useAppDispatch()
   const [search, setSearch] = useState('')
   const [formOpen, setFormOpen] = useState(false)
-  const [viewOpen, setViewOpen] = useState(false)
   const [editMode, setEditMode] = useState(false)
   const [selectedRoom, setSelectedRoom] = useState(null)
   const [form, setForm] = useState(emptyForm)
@@ -37,10 +34,9 @@ const Rooms = () => {
     id: room.id,
     floorNumber: room.floorNumber,
     roomNumber: room.roomNumber,
-    bedType: room.bedType || room.roomType || '—',
-    acType: room.acType || 'Non A/C',
+    bedType: displayValue(room.bedType || room.roomType),
+    acType: displayValue(room.acType, 'Non A/C'),
     costOfBed: getRoomCostPerBed(room, beds),
-    status: getRoomStatus(room, beds),
     room,
   })), [rooms, beds])
 
@@ -60,13 +56,12 @@ const Rooms = () => {
     setForm({
       floorNumber: row.floorNumber,
       roomNumber: row.roomNumber,
-      bedType: row.bedType || row.room?.bedType || row.room?.roomType || '',
-      acType: row.acType || row.room?.acType || 'Non A/C',
+      bedType: row.bedType !== '—' ? row.bedType : row.room?.bedType || row.room?.roomType || '',
+      acType: row.acType !== '—' ? row.acType : row.room?.acType || 'Non A/C',
       costOfBed: row.costOfBed,
     })
     setFormOpen(true)
   }
-  const openView = (row) => { setSelectedRoom(row); setViewOpen(true) }
   const handleDelete = (row) => { dispatch(deleteRoom(row.id)); toast.success(`Room ${row.roomNumber} deleted`) }
 
   const handleSave = () => {
@@ -100,10 +95,9 @@ const Rooms = () => {
     { field: 'acType', headerName: 'Room Type', flex: 1, minWidth: 110 },
     { field: 'costOfBed', headerName: 'Cost of Bed', flex: 1, minWidth: 130, valueFormatter: (v) => formatCurrency(v) },
     {
-      field: 'actions', headerName: 'Actions', width: 130, sortable: false, filterable: false,
+      field: 'actions', headerName: 'Actions', width: 100, sortable: false, filterable: false,
       renderCell: (params) => (
         <div className="flex items-center gap-0.5 h-full">
-          <IconButton size="small" color="info" onClick={() => openView(params.row)} title="View"><Eye size={16} /></IconButton>
           <IconButton size="small" color="primary" onClick={() => openEdit(params.row)} title="Edit"><Pencil size={16} /></IconButton>
           <IconButton size="small" color="error" onClick={() => handleDelete(params.row)} title="Delete"><Trash2 size={16} /></IconButton>
         </div>
@@ -185,28 +179,6 @@ const Rooms = () => {
             sx={fieldSx}
           />
         </DrawerFormStack>
-      </RightDrawer>
-
-      <RightDrawer
-        open={viewOpen}
-        onClose={() => setViewOpen(false)}
-        title="Room Details"
-        variant="room"
-        footer={<Button onClick={() => setViewOpen(false)} sx={{ height: 44 }}>Close</Button>}
-      >
-        {selectedRoom && (
-          <DrawerFormStack>
-            <DrawerDetailItem label="Floor Number" value={selectedRoom.floorNumber} />
-            <DrawerDetailItem label="Room Number" value={selectedRoom.roomNumber} />
-            <DrawerDetailItem label="Bed Type" value={selectedRoom.bedType} />
-            <DrawerDetailItem label="Room Type" value={selectedRoom.acType || selectedRoom.room?.acType || 'Non A/C'} />
-            <DrawerDetailItem label="Cost of Bed" value={formatCurrency(selectedRoom.costOfBed)} />
-            <div className="rounded-lg border border-slate-200 bg-slate-50 px-4 py-3">
-              <p className="text-xs font-medium text-slate-500 mb-2">Occupancy Status</p>
-              <StatusBadge status={selectedRoom.status} />
-            </div>
-          </DrawerFormStack>
-        )}
       </RightDrawer>
     </PageTransition>
   )

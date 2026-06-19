@@ -48,11 +48,32 @@ export const ROLES = {
   ADMIN: 'admin',
 }
 
+export const LOGIN_CREDENTIALS = {
+  [ROLES.SUPER_ADMIN]: {
+    username: 'superadmin',
+    password: 'SuperAdmin@123',
+    name: 'Super Admin',
+    id: 'super-admin-1',
+  },
+  [ROLES.ADMIN]: {
+    username: 'admin',
+    password: 'Admin@123',
+    name: 'Hotel Admin',
+    id: 'admin-1',
+  },
+}
+
+export const displayValue = (value, fallback = '—') => {
+  if (value === null || value === undefined || value === '') return fallback
+  return value
+}
+
 const BASE_MENU = [
   { label: 'Dashboard', path: '/dashboard', icon: 'LayoutDashboard' },
   { label: 'Rooms', path: '/rooms', icon: 'DoorOpen' },
   { label: 'Customers', path: '/customers', icon: 'Users' },
   { label: 'Bookings', path: '/bookings', icon: 'CalendarCheck' },
+  { label: 'Monthly Payments', path: '/monthly-payments', icon: 'Receipt' },
   { label: 'Vacancy', path: '/vacancy', icon: 'MapPin' },
   { label: 'Accounts', path: '/accounts', icon: 'Wallet' },
   { label: 'Settings', path: '/settings', icon: 'Settings' },
@@ -70,6 +91,7 @@ const ROUTE_TITLES = {
   '/rooms': 'Rooms',
   '/customers': 'Customers',
   '/bookings': 'Bookings',
+  '/monthly-payments': 'Monthly Payments',
   '/vacancy': 'Vacancy',
   '/accounts': 'Accounts',
   '/settings': 'Settings',
@@ -138,11 +160,98 @@ export const formatStayDuration = (duration, stayType) => {
   return `${duration || 0} ${stayType || 'Days'}`
 }
 
+/** Map booking stay type to customer-facing label */
+export const mapStayTypeLabel = (stayType) => {
+  if (!stayType) return 'Daily'
+  const t = stayType.toLowerCase()
+  if (t === 'months' || t === 'monthly') return 'Monthly'
+  if (t === 'weeks' || t === 'weekly') return 'Weekly'
+  return 'Daily'
+}
+
+/** Compute expected exit date from booking duration */
+export const computeExpectedCheckOut = (booking, customer) => {
+  if (booking?.checkOutDateTime) return booking.checkOutDateTime
+  if (customer?.checkOutDate) return customer.checkOutDate
+  if (customer?.exitDate) return customer.exitDate
+  if (!booking?.checkInDate && !booking?.checkInDateTime && !customer?.checkInDate) return null
+
+  const checkIn = new Date(booking?.checkInDateTime || booking?.checkInDate || customer?.checkInDate)
+  if (Number.isNaN(checkIn.getTime())) return null
+
+  const duration = booking?.duration || 1
+  const stayType = booking?.stayType || 'Days'
+  const exit = new Date(checkIn)
+
+  if (stayType === 'Hours') exit.setHours(exit.getHours() + duration)
+  else if (stayType === 'Days') exit.setDate(exit.getDate() + duration)
+  else if (stayType === 'Weeks') exit.setDate(exit.getDate() + duration * 7)
+  else if (stayType === 'Months') exit.setMonth(exit.getMonth() + duration)
+
+  return exit.toISOString()
+}
+
+/** Actual check-out only — no computed or placeholder values */
+export const getActualCheckOutDateTime = (customer, booking) => {
+  const raw = booking?.checkOutDateTime || customer?.checkOutDateTime || customer?.checkOutDate || customer?.exitDate
+  if (!raw) return null
+  return raw
+}
+
+export const getCheckInDateTime = (customer, booking) =>
+  booking?.checkInDateTime || customer?.checkInDateTime || customer?.checkInDate || null
+
+export const formatCheckInDateTime = (customer, booking) => {
+  const raw = getCheckInDateTime(customer, booking)
+  if (!raw) return '—'
+  return formatDateTime(raw)
+}
+
+export const formatCheckOutDateTime = (customer, booking) => {
+  const raw = getActualCheckOutDateTime(customer, booking)
+  if (!raw) return '—'
+  return formatDateTime(raw)
+}
+
+/** @deprecated use getActualCheckOutDateTime — kept for compatibility */
+export const getCustomerCheckOutDisplay = (customer, booking) => getActualCheckOutDateTime(customer, booking)
+
+export const formatCheckOutDisplay = (customer, booking) => formatCheckOutDateTime(customer, booking)
+
 export const getBookingPaymentInfo = (booking) => {
   const balanceAmount = booking?.balanceAmount ?? 0
   return {
     balanceAmount,
     paymentStatus: booking?.paymentStatus || getPaymentStatus(balanceAmount),
+  }
+}
+
+export const computeHotelStats = (hotel, customers, bookings) => {
+  const { beds, rooms } = hotel
+  const today = new Date().toISOString().split('T')[0]
+  const totalBeds = beds?.length ?? 0
+  const occupiedBeds = beds?.filter((b) => b.status === 'occupied').length ?? 0
+  const vacantBeds = beds?.filter((b) => b.status === 'vacant').length ?? 0
+  const reservedBeds = beds?.filter((b) => b.status === 'reserved').length ?? 0
+
+  return {
+    totalFloors: hotel.floors?.length ?? 0,
+    totalRooms: rooms?.length ?? 0,
+    totalBeds,
+    occupiedBeds,
+    vacantBeds,
+    reservedBeds,
+    /** occupied + vacant + reserved should equal totalBeds */
+    bedBreakdownValid: occupiedBeds + vacantBeds + reservedBeds === totalBeds,
+    totalCustomers: customers?.list?.length ?? 0,
+    totalBookings: bookings?.list?.length ?? 0,
+    pendingPayments: bookings?.list?.reduce((sum, b) => sum + (b.balanceAmount || 0), 0) ?? 0,
+    todayCheckIns: bookings?.list?.filter((b) =>
+      (b.checkInDateTime || b.checkInDate || b.createdAt || '').startsWith(today),
+    ).length ?? 0,
+    todayCheckOuts: bookings?.list?.filter((b) =>
+      (b.checkOutDateTime || '').startsWith(today),
+    ).length ?? 0,
   }
 }
 export const getStatusBadge = (status) => {

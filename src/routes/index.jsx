@@ -9,6 +9,7 @@ import AdminDashboard from '../pages/AdminDashboard'
 import Rooms from '../pages/Rooms'
 import Customers from '../pages/Customers'
 import Bookings from '../pages/Bookings'
+import MonthlyPayments from '../pages/MonthlyPayments'
 import Vacancy from '../pages/Vacancy'
 import Accounts from '../pages/Accounts'
 import CustomerProfile from '../pages/CustomerProfile'
@@ -32,6 +33,7 @@ const AppRoutes = () => (
       <Route path="/customers" element={<Customers />} />
       <Route path="/customers/:id" element={<CustomerProfile />} />
       <Route path="/bookings" element={<Bookings />} />
+      <Route path="/monthly-payments" element={<MonthlyPayments />} />
       <Route path="/vacancy" element={<Vacancy />} />
       <Route path="/accounts" element={<Accounts />} />
       <Route path="/checkout/:id" element={<Checkout />} />

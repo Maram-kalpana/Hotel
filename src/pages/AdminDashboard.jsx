@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
-import { LogIn, LogOut, Bed, Users, CreditCard } from 'lucide-react'
+import { LogIn, LogOut, Bed, Users, CreditCard, Receipt, AlertCircle, IndianRupee, TrendingUp } from 'lucide-react'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 import StatCard from '../components/StatCard'
 import ChartCard from '../components/ChartCard'
 import PageTransition from '../components/PageTransition'
 import { StatCardSkeleton } from '../components/LoadingSkeleton'
-import { useHotel } from '../hooks/useStore'
-import { formatCurrency } from '../utils/helpers'
+import { useHotel, useBookings, useMonthlyPayments } from '../hooks/useStore'
+import { formatCurrency, computeHotelStats } from '../utils/helpers'
+import { computeMonthlyPaymentStats } from '../utils/monthlyPaymentHelpers'
 import { motion } from 'framer-motion'
 
 const weeklyData = [
@@ -20,7 +21,9 @@ const weeklyData = [
 ]
 
 const AdminDashboard = () => {
-  const { stats } = useHotel()
+  const hotel = useHotel()
+  const { list: bookings } = useBookings()
+  const { tenants } = useMonthlyPayments()
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -28,26 +31,37 @@ const AdminDashboard = () => {
     return () => clearTimeout(timer)
   }, [])
 
+  const stats = computeHotelStats(hotel, { list: [] }, { list: bookings })
+  const monthlyStats = computeMonthlyPaymentStats(tenants)
+
   const cards = [
     { title: "Today's Check-ins", value: stats.todayCheckIns, icon: LogIn, color: 'emerald' },
     { title: "Today's Check-outs", value: stats.todayCheckOuts, icon: LogOut, color: 'rose' },
+    { title: 'Total Beds', value: stats.totalBeds, icon: Bed, color: 'slate', subtitle: `${stats.occupiedBeds} occ · ${stats.vacantBeds} vac · ${stats.reservedBeds} res` },
     { title: 'Vacant Beds', value: stats.vacantBeds, icon: Bed, color: 'royal' },
     { title: 'Occupied Beds', value: stats.occupiedBeds, icon: Users, color: 'violet' },
     { title: 'Pending Payments', value: formatCurrency(stats.pendingPayments), icon: CreditCard, color: 'gold' },
+    { title: 'Monthly Tenants', value: monthlyStats.monthlyTenants, icon: Receipt, color: 'royal' },
+    { title: 'Payments Due', value: monthlyStats.paymentsDue, icon: AlertCircle, color: 'rose' },
+    { title: 'Pending Rent', value: monthlyStats.pendingPayments, icon: AlertCircle, color: 'gold' },
+    { title: 'Collection This Month', value: formatCurrency(monthlyStats.collectionThisMonth), icon: IndianRupee, color: 'emerald' },
+    { title: 'Expected Collection', value: formatCurrency(monthlyStats.expectedCollection), icon: TrendingUp, color: 'slate' },
   ]
 
   return (
     <PageTransition className="page-container">
         <div className="mb-6">
           <h2 className="section-title">Today's Overview</h2>
-          <p className="text-slate-500 mt-1">Manage daily hotel operations efficiently</p>
+          <p className="text-slate-500 mt-1">
+            {stats.totalBeds} beds · {stats.occupiedBeds} occupied · {stats.vacantBeds} vacant · {stats.reservedBeds} reserved
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-8">
           {loading
-            ? Array.from({ length: 5 }).map((_, i) => <StatCardSkeleton key={i} />)
+            ? Array.from({ length: 11 }).map((_, i) => <StatCardSkeleton key={i} />)
             : cards.map((card, i) => (
-              <motion.div key={card.title} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.08 }}>
+              <motion.div key={card.title} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.06 }}>
                 <StatCard {...card} />
               </motion.div>
             ))}

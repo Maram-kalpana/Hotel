@@ -5,7 +5,7 @@ import { TextField, Button, Box } from '@mui/material'
 import { Shield, UserCog, User, Lock, Sparkles } from 'lucide-react'
 import { useAppDispatch } from '../hooks/useStore'
 import { login } from '../redux/slices/authSlice'
-import { ROLES } from '../utils/helpers'
+import { ROLES, LOGIN_CREDENTIALS } from '../utils/helpers'
 import toast from 'react-hot-toast'
 import heroImage from '../assets/hero.png'
 import logo from '../assets/logo.png'
@@ -24,13 +24,19 @@ const Login = () => {
       return
     }
 
-    const users = {
-      [ROLES.SUPER_ADMIN]: { id: 'super-admin-1', name: 'Super Admin', email: username, role: ROLES.SUPER_ADMIN },
-      [ROLES.ADMIN]: { id: 'admin-1', name: 'Hotel Admin', email: username, role: ROLES.ADMIN },
+    const creds = LOGIN_CREDENTIALS[role]
+    if (username.trim() !== creds.username || password !== creds.password) {
+      toast.error('Invalid username or password')
+      return
     }
 
-    dispatch(login(users[role]))
-    toast.success(`Welcome, ${users[role].name}!`)
+    dispatch(login({
+      id: creds.id,
+      name: creds.name,
+      email: creds.username,
+      role,
+    }))
+    toast.success(`Welcome, ${creds.name}!`)
     navigate(role === ROLES.SUPER_ADMIN ? '/super-admin/dashboard' : '/admin/dashboard')
   }
 
@@ -157,6 +163,12 @@ const Login = () => {
                   Sign In
                 </Button>
               </Box>
+
+              <div className="mt-5 rounded-xl bg-slate-50 border border-slate-200 p-3 text-xs text-slate-600 space-y-1.5">
+                <p className="font-semibold text-slate-700">Demo credentials</p>
+                <p><span className="font-medium">Super Admin:</span> superadmin / SuperAdmin@123</p>
+                <p><span className="font-medium">Admin:</span> admin / Admin@123</p>
+              </div>
             </div>
           </div>
 
