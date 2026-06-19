@@ -1,8 +1,8 @@
 import { Chip } from '@mui/material'
-import { getPaymentStatusBadge } from '../utils/helpers'
+import { getPaymentStatusBadge, getPaymentStatus } from '../utils/helpers'
 
 const PaymentStatusBadge = ({ balanceAmount, status }) => {
-  const paymentStatus = status || (balanceAmount > 0 ? 'pending' : 'paid')
+  const paymentStatus = status || getPaymentStatus(balanceAmount)
   const badge = getPaymentStatusBadge(paymentStatus)
   return (
     <Chip

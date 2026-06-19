@@ -1,17 +1,17 @@
 import { NavLink, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import {
-  LayoutDashboard, DoorOpen, Users, CalendarCheck, MapPin, Wallet, Settings, LogOut, ChevronLeft, ChevronRight, Crown, Clock,
+  LayoutDashboard, DoorOpen, Users, CalendarCheck, MapPin, Wallet, Settings, LogOut, ChevronLeft, ChevronRight, Crown,
 } from 'lucide-react'
 import { useAuth, useUI, useAppDispatch } from '../hooks/useStore'
 import { toggleSidebar } from '../redux/slices/uiSlice'
 import { logout } from '../redux/slices/authSlice'
 import { getMenuItems, ROLES } from '../utils/helpers'
-import { SIDEBAR_WIDTH, NAVBAR_HEIGHT } from '../utils/layout'
+import { SIDEBAR_WIDTH } from '../utils/layout'
 import toast from 'react-hot-toast'
 
 const iconMap = {
-  LayoutDashboard, DoorOpen, Users, CalendarCheck, Clock, MapPin, Wallet, Settings,
+  LayoutDashboard, DoorOpen, Users, CalendarCheck, MapPin, Wallet, Settings,
 }
 
 const NAVY = '#0B1F4D'
@@ -35,21 +35,16 @@ const Sidebar = () => {
     <motion.aside
       animate={{ width }}
       transition={{ duration: 0.3, ease: 'easeInOut' }}
-      className="fixed left-0 z-[1200] flex flex-col"
-      style={{
-        backgroundColor: NAVY,
-        width,
-        top: NAVBAR_HEIGHT,
-        height: `calc(100vh - ${NAVBAR_HEIGHT}px)`,
-      }}
+      className="fixed left-0 top-0 z-[1200] flex flex-col"
+      style={{ backgroundColor: NAVY, width, height: '100vh' }}
     >
-      <div className="flex items-center gap-2 px-3 py-2.5 border-b border-white/10 min-h-[56px]">
+      <div className="flex items-center gap-2 px-3 py-4 border-b border-white/10 min-h-[70px]">
         <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/15 text-white shrink-0">
           <Crown size={16} />
         </div>
         {!sidebarCollapsed && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="min-w-0">
-            <p className="text-[10px] text-blue-200 leading-none truncate">Luxury Hotel</p>
+            <p className="text-[10px] text-blue-200 leading-none">Luxury Hotel</p>
             <p className="font-semibold text-white font-[Poppins] text-xs truncate">Management</p>
           </motion.div>
         )}
@@ -69,7 +64,7 @@ const Sidebar = () => {
               className={({ isActive }) =>
                 `flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-[13px] font-medium transition-all ${
                   isActive ? 'shadow-sm' : 'text-white/80 hover:bg-white/10 hover:text-white'
-                } ${sidebarCollapsed ? 'justify-center' : ''}`
+                } ${sidebarCollapsed ? 'justify-center px-2' : ''}`
               }
               style={({ isActive }) => isActive ? { backgroundColor: ACTIVE_BG, color: ACTIVE_TEXT } : undefined}
             >
@@ -83,17 +78,17 @@ const Sidebar = () => {
       <div className="border-t border-white/10 p-2">
         <button
           onClick={handleLogout}
-          className={`flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-[13px] font-medium text-red-300 hover:bg-red-500/10 transition-colors ${sidebarCollapsed ? 'justify-center' : ''}`}
+          className={`flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-[13px] font-medium text-red-300 hover:bg-red-500/10 transition-colors ${sidebarCollapsed ? 'justify-center px-2' : ''}`}
           title={sidebarCollapsed ? 'Logout' : undefined}
         >
-          <LogOut size={18} />
+          <LogOut size={18} className="shrink-0" />
           {!sidebarCollapsed && <span>Logout</span>}
         </button>
       </div>
 
       <button
         onClick={() => dispatch(toggleSidebar())}
-        className="absolute -right-3 top-16 flex h-6 w-6 items-center justify-center rounded-full bg-white border border-slate-200 shadow-sm text-slate-500 hover:text-blue-600"
+        className="absolute -right-3 top-[72px] flex h-6 w-6 items-center justify-center rounded-full bg-white border border-slate-200 shadow-sm text-slate-500 hover:text-blue-600"
         aria-label="Toggle sidebar"
       >
         {sidebarCollapsed ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}

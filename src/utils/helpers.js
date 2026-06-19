@@ -44,7 +44,6 @@ const BASE_MENU = [
   { label: 'Rooms', path: '/rooms', icon: 'DoorOpen' },
   { label: 'Customers', path: '/customers', icon: 'Users' },
   { label: 'Bookings', path: '/bookings', icon: 'CalendarCheck' },
-  { label: 'Pendings', path: '/pendings', icon: 'Clock' },
   { label: 'Vacancy', path: '/vacancy', icon: 'MapPin' },
   { label: 'Accounts', path: '/accounts', icon: 'Wallet' },
   { label: 'Settings', path: '/settings', icon: 'Settings' },
@@ -95,21 +94,28 @@ export const getMonthYear = (date) => {
   return d.toLocaleDateString('en-IN', { month: 'long', year: 'numeric' })
 }
 
-export const getPaymentStatus = (balanceAmount) =>
-  (balanceAmount ?? 0) > 0 ? 'pending' : 'paid'
+export const getPaymentStatus = (balanceAmount, explicitStatus) => {
+  if (explicitStatus === 'completed' || explicitStatus === 'pending') return explicitStatus
+  return (balanceAmount ?? 0) > 0 ? 'pending' : 'completed'
+}
 
 export const getPaymentStatusBadge = (status) => {
-  if (status === 'paid') {
-    return { label: 'Paid', className: 'bg-emerald-100 text-emerald-700 border-emerald-200' }
+  if (status === 'completed') {
+    return { label: 'Completed', className: 'bg-emerald-100 text-emerald-700 border-emerald-200' }
   }
   return { label: 'Pending', className: 'bg-red-100 text-red-700 border-red-200' }
+}
+
+export const formatStayDuration = (duration, stayType) => {
+  if (!duration && !stayType) return '—'
+  return `${duration || 0} ${stayType || 'Days'}`
 }
 
 export const getBookingPaymentInfo = (booking) => {
   const balanceAmount = booking?.balanceAmount ?? 0
   return {
     balanceAmount,
-    paymentStatus: getPaymentStatus(balanceAmount),
+    paymentStatus: booking?.paymentStatus || getPaymentStatus(balanceAmount),
   }
 }
 export const getStatusBadge = (status) => {

@@ -1,6 +1,6 @@
 export const SIDEBAR_WIDTH = {
-  expanded: 220,
-  collapsed: 70,
+  expanded: 210,
+  collapsed: 68,
 }
 
 export const NAVBAR_HEIGHT = 70

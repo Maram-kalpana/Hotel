@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { TextField, Button } from '@mui/material'
-import { Crown, Shield, UserCog } from 'lucide-react'
+import { TextField, Button, Box } from '@mui/material'
+import { Crown, Shield, UserCog, User, Lock, Sparkles } from 'lucide-react'
 import { useAppDispatch } from '../hooks/useStore'
 import { login } from '../redux/slices/authSlice'
 import { ROLES } from '../utils/helpers'
@@ -10,79 +10,156 @@ import toast from 'react-hot-toast'
 import heroImage from '../assets/hero.png'
 
 const Login = () => {
-  const [email, setEmail] = useState('')
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [role, setRole] = useState(ROLES.ADMIN)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
-  const handleLogin = (role) => {
-    const users = {
-      [ROLES.SUPER_ADMIN]: { id: 'super-admin-1', name: 'Super Admin', email: 'superadmin@luxehotel.com', role: ROLES.SUPER_ADMIN },
-      [ROLES.ADMIN]: { id: 'admin-1', name: 'Hotel Admin', email: 'admin@luxehotel.com', role: ROLES.ADMIN },
+  const handleLogin = (e) => {
+    e.preventDefault()
+    if (!username.trim() || !password.trim()) {
+      toast.error('Please enter username and password')
+      return
     }
+
+    const users = {
+      [ROLES.SUPER_ADMIN]: { id: 'super-admin-1', name: 'Super Admin', email: username, role: ROLES.SUPER_ADMIN },
+      [ROLES.ADMIN]: { id: 'admin-1', name: 'Hotel Admin', email: username, role: ROLES.ADMIN },
+    }
+
     dispatch(login(users[role]))
     toast.success(`Welcome, ${users[role].name}!`)
     navigate(role === ROLES.SUPER_ADMIN ? '/super-admin/dashboard' : '/admin/dashboard')
   }
 
-  const handleFormLogin = (e) => {
-    e.preventDefault()
-    if (email.includes('super')) handleLogin(ROLES.SUPER_ADMIN)
-    else handleLogin(ROLES.ADMIN)
-  }
+  const roles = [
+    { id: ROLES.SUPER_ADMIN, label: 'Super Admin', icon: Shield },
+    { id: ROLES.ADMIN, label: 'Admin', icon: UserCog },
+  ]
 
   return (
-    <div className="min-h-screen relative flex items-center justify-center p-4">
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${heroImage})` }}
-      />
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-900/80 via-blue-800/70 to-slate-900/80" />
+    <div className="min-h-screen flex bg-[#0B1F4D]">
+      <div className="hidden lg:flex lg:w-[52%] relative overflow-hidden">
+        <div className="absolute inset-0 bg-cover bg-center scale-105" style={{ backgroundImage: `url(${heroImage})` }} />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0B1F4D]/95 via-[#1e3a8a]/80 to-[#0f172a]/90" />
+        <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(circle at 20% 80%, #60a5fa 0%, transparent 50%), radial-gradient(circle at 80% 20%, #d4af37 0%, transparent 40%)' }} />
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          className="relative z-10 flex flex-col justify-end p-14 pb-16 max-w-lg"
+        >
+          <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 mb-8 shadow-2xl">
+            <Crown size={30} className="text-amber-300" />
+          </div>
+          <h1 className="text-[2.75rem] font-bold font-[Poppins] leading-[1.15] text-white mb-5">
+            Grand Luxe Hotel Management
+          </h1>
+          <p className="text-blue-100/90 text-lg leading-relaxed mb-8">
+            Streamline bookings, manage rooms, track payments, and run daily operations from one professional ERP dashboard.
+          </p>
+          <div className="flex items-center gap-2 text-blue-200/80 text-sm">
+            <Sparkles size={16} className="text-amber-300" />
+            <span>Premium hospitality management platform</span>
+          </div>
+        </motion.div>
+      </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 30, scale: 0.95 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.5 }}
-        className="relative z-10 w-full max-w-md glass-card rounded-3xl p-8"
-      >
-        <div className="text-center mb-8">
-          <motion.div
-            initial={{ rotate: -10 }}
-            animate={{ rotate: 0 }}
-            className="inline-flex h-16 w-16 items-center justify-center rounded-2xl gradient-royal text-white shadow-lg mb-4"
-          >
-            <Crown size={32} />
-          </motion.div>
-          <h1 className="text-2xl font-bold text-slate-900 font-[Poppins]">Grand Luxe Hotel</h1>
-          <p className="text-slate-500 mt-1">Welcome back! Sign in to your account</p>
-        </div>
+      <div className="flex-1 flex items-center justify-center p-6 sm:p-12 bg-gradient-to-br from-slate-50 via-white to-blue-50/30 relative">
+        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%230B1F4D\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")' }} />
 
-        <form onSubmit={handleFormLogin} className="space-y-4">
-          <TextField label="Email Address" type="email" fullWidth value={email} onChange={(e) => setEmail(e.target.value)} />
-          <TextField label="Password" type="password" fullWidth value={password} onChange={(e) => setPassword(e.target.value)} />
-          <Button type="submit" variant="contained" fullWidth size="large" className="gradient-royal! py-3!">
-            Sign In
-          </Button>
-        </form>
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="relative w-full max-w-[420px]"
+        >
+          <div className="bg-white rounded-2xl shadow-[0_20px_60px_-15px_rgba(11,31,77,0.15)] border border-slate-100 overflow-hidden">
+            <div className="h-1 bg-gradient-to-r from-[#0B1F4D] via-[#1e40af] to-[#d4af37]" />
 
-        <div className="mt-6 space-y-3">
-          <p className="text-center text-xs text-slate-400 uppercase tracking-wider">Demo Login</p>
-          <Button
-            fullWidth variant="outlined" startIcon={<Shield size={18} />}
-            onClick={() => handleLogin(ROLES.SUPER_ADMIN)}
-            sx={{ borderColor: '#1e40af', color: '#1e40af', '&:hover': { borderColor: '#1e3a8a', bgcolor: 'rgba(30,64,175,0.04)' } }}
-          >
-            Login as Super Admin
-          </Button>
-          <Button
-            fullWidth variant="outlined" startIcon={<UserCog size={18} />}
-            onClick={() => handleLogin(ROLES.ADMIN)}
-            sx={{ borderColor: '#d4af37', color: '#b8960c', '&:hover': { borderColor: '#b8960c', bgcolor: 'rgba(212,175,55,0.08)' } }}
-          >
-            Login as Admin
-          </Button>
-        </div>
-      </motion.div>
+            <div className="px-8 pt-8 pb-8">
+              <div className="mb-7">
+                <h2 className="text-2xl font-bold text-[#0B1F4D] font-[Poppins]">Welcome back</h2>
+                <p className="text-slate-500 mt-1.5 text-sm">Sign in to your hotel management portal</p>
+              </div>
+
+              <div className="flex gap-2 p-1 bg-slate-100 rounded-xl mb-6">
+                {roles.map(({ id, label, icon: Icon }) => (
+                  <button
+                    key={id}
+                    type="button"
+                    onClick={() => setRole(id)}
+                    className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg text-sm font-medium transition-all ${
+                      role === id
+                        ? 'bg-[#0B1F4D] text-white shadow-md'
+                        : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
+                    }`}
+                  >
+                    <Icon size={16} />
+                    {label}
+                  </button>
+                ))}
+              </div>
+
+              <Box component="form" onSubmit={handleLogin} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                <Box>
+                  <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wide mb-1.5">Username</label>
+                  <Box sx={{ position: 'relative' }}>
+                    <User size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 z-10 pointer-events-none" />
+                    <input
+                      type="text"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                      autoComplete="username"
+                      placeholder="Enter your username"
+                      className="w-full h-12 pl-10 pr-4 border border-slate-200 rounded-xl text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-[#0B1F4D] focus:ring-2 focus:ring-[#0B1F4D]/10 transition-all bg-white"
+                    />
+                  </Box>
+                </Box>
+
+                <Box>
+                  <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wide mb-1.5">Password</label>
+                  <Box sx={{ position: 'relative' }}>
+                    <Lock size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 z-10 pointer-events-none" />
+                    <input
+                      type="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      autoComplete="current-password"
+                      placeholder="Enter your password"
+                      className="w-full h-12 pl-10 pr-4 border border-slate-200 rounded-xl text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-[#0B1F4D] focus:ring-2 focus:ring-[#0B1F4D]/10 transition-all bg-white"
+                    />
+                  </Box>
+                </Box>
+
+                <Button
+                  type="submit"
+                  variant="contained"
+                  fullWidth
+                  sx={{
+                    mt: 1,
+                    height: 48,
+                    borderRadius: '12px',
+                    textTransform: 'none',
+                    fontSize: '0.9375rem',
+                    fontWeight: 600,
+                    bgcolor: '#0B1F4D',
+                    boxShadow: '0 4px 14px rgba(11, 31, 77, 0.25)',
+                    '&:hover': { bgcolor: '#0a1a3d', boxShadow: '0 6px 20px rgba(11, 31, 77, 0.3)' },
+                  }}
+                >
+                  Sign In
+                </Button>
+              </Box>
+            </div>
+          </div>
+
+          <p className="text-center text-xs text-slate-400 mt-6">
+            Secure access for authorized hotel staff only
+          </p>
+        </motion.div>
+      </div>
     </div>
   )
 }
