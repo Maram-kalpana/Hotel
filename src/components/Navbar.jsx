@@ -1,13 +1,17 @@
 import { AppBar, Toolbar, IconButton, Badge, Avatar, InputBase, Box, Typography } from '@mui/material'
 import { Search, Bell, ChevronDown } from 'lucide-react'
+import { useLocation } from 'react-router-dom'
 import { useUI, useAuth, useAppDispatch } from '../hooks/useStore'
 import { setGlobalSearch } from '../redux/slices/uiSlice'
+import { getPageTitle } from '../utils/helpers'
 import { NAVBAR_HEIGHT } from '../utils/layout'
 
 const Navbar = () => {
   const { globalSearch } = useUI()
   const { user } = useAuth()
   const dispatch = useAppDispatch()
+  const { pathname } = useLocation()
+  const pageTitle = getPageTitle(pathname)
 
   return (
     <AppBar
@@ -23,11 +27,35 @@ const Navbar = () => {
         boxShadow: '0 1px 3px rgba(15, 23, 42, 0.04)',
       }}
     >
-      <Toolbar disableGutters sx={{ height: NAVBAR_HEIGHT, minHeight: `${NAVBAR_HEIGHT}px !important`, px: 2, gap: 2 }}>
+      <Toolbar
+        disableGutters
+        sx={{
+          height: NAVBAR_HEIGHT,
+          minHeight: `${NAVBAR_HEIGHT}px !important`,
+          px: 2,
+          display: 'grid',
+          gridTemplateColumns: { xs: '1fr auto', sm: 'minmax(120px, 1fr) minmax(280px, 480px) minmax(120px, 1fr)' },
+          alignItems: 'center',
+          gap: 2,
+        }}
+      >
+        <Typography
+          variant="h6"
+          sx={{
+            fontFamily: 'Poppins, sans-serif',
+            fontWeight: 600,
+            fontSize: { xs: '1rem', sm: '1.125rem' },
+            color: '#0B1F4D',
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+          }}
+        >
+          {pageTitle}
+        </Typography>
+
         <Box
           sx={{
-            flex: 1,
-            maxWidth: 640,
             display: 'flex',
             alignItems: 'center',
             gap: 1.5,
@@ -36,6 +64,11 @@ const Navbar = () => {
             borderRadius: '999px',
             border: '1px solid #e2e8f0',
             bgcolor: '#f8fafc',
+            gridColumn: { xs: '1 / -1', sm: 'auto' },
+            order: { xs: 2, sm: 0 },
+            width: { xs: '100%', sm: 'auto' },
+            maxWidth: '100%',
+            justifySelf: 'center',
           }}
         >
           <Search size={18} className="text-slate-400 shrink-0" />
@@ -47,7 +80,16 @@ const Navbar = () => {
           />
         </Box>
 
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, ml: 'auto', flexShrink: 0 }}>
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 1.5,
+            justifySelf: 'end',
+            flexShrink: 0,
+            order: { xs: 1, sm: 0 },
+          }}
+        >
           <IconButton size="small" aria-label="Notifications" sx={{ color: '#64748b' }}>
             <Badge color="error" variant="dot" overlap="circular">
               <Bell size={20} />

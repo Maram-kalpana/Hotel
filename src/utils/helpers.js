@@ -64,6 +64,24 @@ export const ADMIN_MENU_ITEMS = BASE_MENU
 export const getMenuItems = (role) =>
   role === ROLES.SUPER_ADMIN ? SUPER_ADMIN_MENU_ITEMS : ADMIN_MENU_ITEMS
 
+const ROUTE_TITLES = {
+  '/super-admin/dashboard': 'Dashboard',
+  '/admin/dashboard': 'Dashboard',
+  '/rooms': 'Rooms',
+  '/customers': 'Customers',
+  '/bookings': 'Bookings',
+  '/vacancy': 'Vacancy',
+  '/accounts': 'Accounts',
+  '/settings': 'Settings',
+}
+
+export const getPageTitle = (pathname) => {
+  if (ROUTE_TITLES[pathname]) return ROUTE_TITLES[pathname]
+  if (pathname.startsWith('/customers/')) return 'Customer Profile'
+  if (pathname.startsWith('/checkout/')) return 'Checkout'
+  return 'Dashboard'
+}
+
 export const getRoomStatus = (room, beds) => {
   const roomBeds = beds.filter((b) => b.roomId === room.id)
   if (!roomBeds.length) return 'vacant'

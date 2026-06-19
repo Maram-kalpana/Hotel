@@ -389,24 +389,19 @@ const BookingsContent = () => {
 
   return (
     <>
-      <div className="flex items-center justify-between mb-4 gap-4 flex-wrap">
-        <div className="page-header" style={{ marginBottom: 0 }}>
-          <h2 className="section-title">Bookings</h2>
-          <p className="page-subtitle">{tableRows.length} bookings</p>
+      <div className="toolbar-row">
+        <div className="flex flex-wrap items-end gap-3 flex-1">
+          <TextField label="Search Booking" value={search} onChange={(e) => setSearch(e.target.value)} sx={filterFieldSx} />
+          <DatePickerField label="Booking Date" value={bookingDate} onChange={setBookingDate} sx={filterFieldSx} />
+          <TextField select label="Payment Status" value={paymentFilter} onChange={(e) => setPaymentFilter(e.target.value)} sx={filterFieldSx}>
+            <MenuItem value="">All</MenuItem>
+            <MenuItem value="pending">Pending</MenuItem>
+            <MenuItem value="completed">Completed</MenuItem>
+          </TextField>
         </div>
         <Button variant="contained" startIcon={<Plus size={18} />} onClick={() => setDrawerOpen(true)} sx={{ ...primaryButtonSx, flexShrink: 0 }}>
           Add Booking
         </Button>
-      </div>
-
-      <div className="flex flex-wrap items-end gap-3 mb-5">
-        <TextField label="Search Booking" value={search} onChange={(e) => setSearch(e.target.value)} sx={filterFieldSx} />
-        <DatePickerField label="Booking Date" value={bookingDate} onChange={setBookingDate} sx={filterFieldSx} />
-        <TextField select label="Payment Status" value={paymentFilter} onChange={(e) => setPaymentFilter(e.target.value)} sx={filterFieldSx}>
-          <MenuItem value="">All</MenuItem>
-          <MenuItem value="pending">Pending</MenuItem>
-          <MenuItem value="completed">Completed</MenuItem>
-        </TextField>
       </div>
 
       <MuiDataGrid rows={tableRows} columns={columns} pageSize={10} />

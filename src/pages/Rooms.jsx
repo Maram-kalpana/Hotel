@@ -20,7 +20,8 @@ const selectMenuProps = {
   PaperProps: { sx: { maxHeight: 280 } },
 }
 
-const emptyForm = { floorNumber: '', roomNumber: '', bedType: '', costOfBed: '' }
+const emptyForm = { floorNumber: '', roomNumber: '', bedType: '', acType: 'Non A/C', costOfBed: '' }
+const acTypes = ['A/C', 'Non A/C']
 
 const Rooms = () => {
   const { rooms, beds } = useHotel()
@@ -37,6 +38,7 @@ const Rooms = () => {
     floorNumber: room.floorNumber,
     roomNumber: room.roomNumber,
     bedType: room.bedType || room.roomType || '—',
+    acType: room.acType || 'Non A/C',
     costOfBed: getRoomCostPerBed(room, beds),
     status: getRoomStatus(room, beds),
     room,
@@ -59,6 +61,7 @@ const Rooms = () => {
       floorNumber: row.floorNumber,
       roomNumber: row.roomNumber,
       bedType: row.bedType || row.room?.bedType || row.room?.roomType || '',
+      acType: row.acType || row.room?.acType || 'Non A/C',
       costOfBed: row.costOfBed,
     })
     setFormOpen(true)
@@ -67,7 +70,7 @@ const Rooms = () => {
   const handleDelete = (row) => { dispatch(deleteRoom(row.id)); toast.success(`Room ${row.roomNumber} deleted`) }
 
   const handleSave = () => {
-    if (!form.floorNumber || !form.roomNumber || !form.bedType || !form.costOfBed) {
+    if (!form.floorNumber || !form.roomNumber || !form.bedType || !form.acType || !form.costOfBed) {
       toast.error('Please fill all fields')
       return
     }
@@ -75,6 +78,7 @@ const Rooms = () => {
       floorNumber: form.floorNumber,
       roomNumber: form.roomNumber,
       bedType: form.bedType,
+      acType: form.acType,
       costOfBed: form.costOfBed,
       numberOfBeds: selectedRoom?.totalBeds || 1,
     }
@@ -93,6 +97,7 @@ const Rooms = () => {
     { field: 'floorNumber', headerName: 'Floor Number', flex: 1, minWidth: 120 },
     { field: 'roomNumber', headerName: 'Room Number', flex: 1, minWidth: 120 },
     { field: 'bedType', headerName: 'Bed Type', flex: 1, minWidth: 110 },
+    { field: 'acType', headerName: 'Room Type', flex: 1, minWidth: 110 },
     { field: 'costOfBed', headerName: 'Cost of Bed', flex: 1, minWidth: 130, valueFormatter: (v) => formatCurrency(v) },
     {
       field: 'actions', headerName: 'Actions', width: 130, sortable: false, filterable: false,
@@ -108,11 +113,6 @@ const Rooms = () => {
 
   return (
     <PageTransition className="page-container">
-      <div className="page-header">
-        <h2 className="section-title">Rooms</h2>
-        <p className="page-subtitle">{filteredRows.length} rooms found</p>
-      </div>
-
       <div className="toolbar-row">
         <TextField
           placeholder="Search floor or room number..."
@@ -166,6 +166,17 @@ const Rooms = () => {
             {bedTypes.map((type) => <MenuItem key={type} value={type}>{type}</MenuItem>)}
           </TextField>
           <TextField
+            select
+            fullWidth
+            label="Room Type"
+            value={form.acType}
+            onChange={(e) => setForm({ ...form, acType: e.target.value })}
+            sx={fieldSx}
+            SelectProps={{ MenuProps: selectMenuProps }}
+          >
+            {acTypes.map((type) => <MenuItem key={type} value={type}>{type}</MenuItem>)}
+          </TextField>
+          <TextField
             fullWidth
             label="Cost of Bed"
             type="number"
@@ -188,6 +199,7 @@ const Rooms = () => {
             <DrawerDetailItem label="Floor Number" value={selectedRoom.floorNumber} />
             <DrawerDetailItem label="Room Number" value={selectedRoom.roomNumber} />
             <DrawerDetailItem label="Bed Type" value={selectedRoom.bedType} />
+            <DrawerDetailItem label="Room Type" value={selectedRoom.acType || selectedRoom.room?.acType || 'Non A/C'} />
             <DrawerDetailItem label="Cost of Bed" value={formatCurrency(selectedRoom.costOfBed)} />
             <div className="rounded-lg border border-slate-200 bg-slate-50 px-4 py-3">
               <p className="text-xs font-medium text-slate-500 mb-2">Occupancy Status</p>

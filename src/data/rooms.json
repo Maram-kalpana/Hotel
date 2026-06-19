@@ -8,7 +8,8 @@
     "totalBeds": 4,
     "occupiedBeds": 3,
     "vacantBeds": 0,
-    "status": "available"
+    "status": "available",
+    "acType": "A/C"
   },
   {
     "id": "room-102",
@@ -19,7 +20,8 @@
     "totalBeds": 4,
     "occupiedBeds": 3,
     "vacantBeds": 0,
-    "status": "available"
+    "status": "available",
+    "acType": "Non A/C"
   },
   {
     "id": "room-103",
@@ -30,7 +32,8 @@
     "totalBeds": 4,
     "occupiedBeds": 3,
     "vacantBeds": 0,
-    "status": "available"
+    "status": "available",
+    "acType": "A/C"
   },
   {
     "id": "room-104",
@@ -41,7 +44,8 @@
     "totalBeds": 4,
     "occupiedBeds": 3,
     "vacantBeds": 0,
-    "status": "available"
+    "status": "available",
+    "acType": "Non A/C"
   },
   {
     "id": "room-105",
@@ -52,7 +56,8 @@
     "totalBeds": 4,
     "occupiedBeds": 4,
     "vacantBeds": 0,
-    "status": "available"
+    "status": "available",
+    "acType": "A/C"
   },
   {
     "id": "room-106",
@@ -63,7 +68,8 @@
     "totalBeds": 4,
     "occupiedBeds": 3,
     "vacantBeds": 0,
-    "status": "available"
+    "status": "available",
+    "acType": "Non A/C"
   },
   {
     "id": "room-107",
@@ -74,7 +80,8 @@
     "totalBeds": 4,
     "occupiedBeds": 3,
     "vacantBeds": 0,
-    "status": "available"
+    "status": "available",
+    "acType": "A/C"
   },
   {
     "id": "room-108",
@@ -85,7 +92,8 @@
     "totalBeds": 4,
     "occupiedBeds": 3,
     "vacantBeds": 0,
-    "status": "available"
+    "status": "available",
+    "acType": "Non A/C"
   },
   {
     "id": "room-109",
@@ -96,7 +104,8 @@
     "totalBeds": 4,
     "occupiedBeds": 3,
     "vacantBeds": 0,
-    "status": "available"
+    "status": "available",
+    "acType": "A/C"
   },
   {
     "id": "room-110",
@@ -107,7 +116,8 @@
     "totalBeds": 4,
     "occupiedBeds": 4,
     "vacantBeds": 0,
-    "status": "available"
+    "status": "available",
+    "acType": "Non A/C"
   },
   {
     "id": "room-201",
@@ -118,7 +128,8 @@
     "totalBeds": 4,
     "occupiedBeds": 3,
     "vacantBeds": 0,
-    "status": "available"
+    "status": "available",
+    "acType": "A/C"
   },
   {
     "id": "room-202",
@@ -129,7 +140,8 @@
     "totalBeds": 4,
     "occupiedBeds": 3,
     "vacantBeds": 0,
-    "status": "available"
+    "status": "available",
+    "acType": "Non A/C"
   },
   {
     "id": "room-203",
@@ -140,7 +152,8 @@
     "totalBeds": 4,
     "occupiedBeds": 2,
     "vacantBeds": 2,
-    "status": "available"
+    "status": "available",
+    "acType": "A/C"
   },
   {
     "id": "room-204",
@@ -151,7 +164,8 @@
     "totalBeds": 4,
     "occupiedBeds": 0,
     "vacantBeds": 4,
-    "status": "available"
+    "status": "available",
+    "acType": "Non A/C"
   },
   {
     "id": "room-205",
@@ -162,7 +176,8 @@
     "totalBeds": 4,
     "occupiedBeds": 0,
     "vacantBeds": 4,
-    "status": "available"
+    "status": "available",
+    "acType": "A/C"
   },
   {
     "id": "room-206",
@@ -173,7 +188,8 @@
     "totalBeds": 4,
     "occupiedBeds": 0,
     "vacantBeds": 4,
-    "status": "available"
+    "status": "available",
+    "acType": "Non A/C"
   },
   {
     "id": "room-207",
@@ -184,7 +200,8 @@
     "totalBeds": 4,
     "occupiedBeds": 0,
     "vacantBeds": 4,
-    "status": "available"
+    "status": "available",
+    "acType": "A/C"
   },
   {
     "id": "room-208",
@@ -195,7 +212,8 @@
     "totalBeds": 4,
     "occupiedBeds": 0,
     "vacantBeds": 4,
-    "status": "available"
+    "status": "available",
+    "acType": "Non A/C"
   },
   {
     "id": "room-209",
@@ -206,7 +224,8 @@
     "totalBeds": 4,
     "occupiedBeds": 0,
     "vacantBeds": 4,
-    "status": "available"
+    "status": "available",
+    "acType": "A/C"
   },
   {
     "id": "room-210",
@@ -217,7 +236,8 @@
     "totalBeds": 4,
     "occupiedBeds": 0,
     "vacantBeds": 4,
-    "status": "available"
+    "status": "available",
+    "acType": "Non A/C"
   },
   {
     "id": "room-301",
@@ -228,7 +248,8 @@
     "totalBeds": 4,
     "occupiedBeds": 0,
     "vacantBeds": 4,
-    "status": "available"
+    "status": "available",
+    "acType": "A/C"
   },
   {
     "id": "room-302",
@@ -239,7 +260,8 @@
     "totalBeds": 4,
     "occupiedBeds": 0,
     "vacantBeds": 4,
-    "status": "available"
+    "status": "available",
+    "acType": "Non A/C"
   },
   {
     "id": "room-303",
@@ -250,7 +272,8 @@
     "totalBeds": 4,
     "occupiedBeds": 0,
     "vacantBeds": 4,
-    "status": "available"
+    "status": "available",
+    "acType": "A/C"
   },
   {
     "id": "room-304",
@@ -261,7 +284,8 @@
     "totalBeds": 4,
     "occupiedBeds": 0,
     "vacantBeds": 4,
-    "status": "available"
+    "status": "available",
+    "acType": "Non A/C"
   },
   {
     "id": "room-305",
@@ -272,7 +296,8 @@
     "totalBeds": 4,
     "occupiedBeds": 0,
     "vacantBeds": 4,
-    "status": "available"
+    "status": "available",
+    "acType": "A/C"
   },
   {
     "id": "room-306",
@@ -283,7 +308,8 @@
     "totalBeds": 4,
     "occupiedBeds": 0,
     "vacantBeds": 4,
-    "status": "available"
+    "status": "available",
+    "acType": "Non A/C"
   },
   {
     "id": "room-307",
@@ -294,7 +320,8 @@
     "totalBeds": 4,
     "occupiedBeds": 0,
     "vacantBeds": 4,
-    "status": "available"
+    "status": "available",
+    "acType": "A/C"
   },
   {
     "id": "room-308",
@@ -305,7 +332,8 @@
     "totalBeds": 4,
     "occupiedBeds": 0,
     "vacantBeds": 4,
-    "status": "available"
+    "status": "available",
+    "acType": "Non A/C"
   },
   {
     "id": "room-309",
@@ -316,7 +344,8 @@
     "totalBeds": 4,
     "occupiedBeds": 0,
     "vacantBeds": 4,
-    "status": "available"
+    "status": "available",
+    "acType": "A/C"
   },
   {
     "id": "room-310",
@@ -327,7 +356,8 @@
     "totalBeds": 4,
     "occupiedBeds": 0,
     "vacantBeds": 4,
-    "status": "available"
+    "status": "available",
+    "acType": "Non A/C"
   },
   {
     "id": "room-401",
@@ -338,7 +368,8 @@
     "totalBeds": 4,
     "occupiedBeds": 0,
     "vacantBeds": 4,
-    "status": "available"
+    "status": "available",
+    "acType": "A/C"
   },
   {
     "id": "room-402",
@@ -349,7 +380,8 @@
     "totalBeds": 4,
     "occupiedBeds": 0,
     "vacantBeds": 4,
-    "status": "available"
+    "status": "available",
+    "acType": "Non A/C"
   },
   {
     "id": "room-403",
@@ -360,7 +392,8 @@
     "totalBeds": 4,
     "occupiedBeds": 0,
     "vacantBeds": 4,
-    "status": "available"
+    "status": "available",
+    "acType": "A/C"
   },
   {
     "id": "room-404",
@@ -371,7 +404,8 @@
     "totalBeds": 4,
     "occupiedBeds": 0,
     "vacantBeds": 4,
-    "status": "available"
+    "status": "available",
+    "acType": "Non A/C"
   },
   {
     "id": "room-405",
@@ -382,7 +416,8 @@
     "totalBeds": 4,
     "occupiedBeds": 0,
     "vacantBeds": 4,
-    "status": "available"
+    "status": "available",
+    "acType": "A/C"
   },
   {
     "id": "room-406",
@@ -393,7 +428,8 @@
     "totalBeds": 4,
     "occupiedBeds": 0,
     "vacantBeds": 4,
-    "status": "available"
+    "status": "available",
+    "acType": "Non A/C"
   },
   {
     "id": "room-407",
@@ -404,7 +440,8 @@
     "totalBeds": 4,
     "occupiedBeds": 0,
     "vacantBeds": 4,
-    "status": "available"
+    "status": "available",
+    "acType": "A/C"
   },
   {
     "id": "room-408",
@@ -415,7 +452,8 @@
     "totalBeds": 4,
     "occupiedBeds": 0,
     "vacantBeds": 4,
-    "status": "available"
+    "status": "available",
+    "acType": "Non A/C"
   },
   {
     "id": "room-409",
@@ -426,7 +464,8 @@
     "totalBeds": 4,
     "occupiedBeds": 0,
     "vacantBeds": 4,
-    "status": "available"
+    "status": "available",
+    "acType": "A/C"
   },
   {
     "id": "room-410",
@@ -437,7 +476,8 @@
     "totalBeds": 4,
     "occupiedBeds": 0,
     "vacantBeds": 4,
-    "status": "available"
+    "status": "available",
+    "acType": "Non A/C"
   },
   {
     "id": "room-501",
@@ -448,7 +488,8 @@
     "totalBeds": 4,
     "occupiedBeds": 0,
     "vacantBeds": 4,
-    "status": "available"
+    "status": "available",
+    "acType": "A/C"
   },
   {
     "id": "room-502",
@@ -459,7 +500,8 @@
     "totalBeds": 4,
     "occupiedBeds": 0,
     "vacantBeds": 4,
-    "status": "available"
+    "status": "available",
+    "acType": "Non A/C"
   },
   {
     "id": "room-503",
@@ -470,7 +512,8 @@
     "totalBeds": 4,
     "occupiedBeds": 0,
     "vacantBeds": 4,
-    "status": "available"
+    "status": "available",
+    "acType": "A/C"
   },
   {
     "id": "room-504",
@@ -481,7 +524,8 @@
     "totalBeds": 4,
     "occupiedBeds": 0,
     "vacantBeds": 4,
-    "status": "available"
+    "status": "available",
+    "acType": "Non A/C"
   },
   {
     "id": "room-505",
@@ -492,7 +536,8 @@
     "totalBeds": 4,
     "occupiedBeds": 0,
     "vacantBeds": 4,
-    "status": "available"
+    "status": "available",
+    "acType": "A/C"
   },
   {
     "id": "room-506",
@@ -503,7 +548,8 @@
     "totalBeds": 4,
     "occupiedBeds": 0,
     "vacantBeds": 4,
-    "status": "available"
+    "status": "available",
+    "acType": "Non A/C"
   },
   {
     "id": "room-507",
@@ -514,7 +560,8 @@
     "totalBeds": 4,
     "occupiedBeds": 0,
     "vacantBeds": 4,
-    "status": "available"
+    "status": "available",
+    "acType": "A/C"
   },
   {
     "id": "room-508",
@@ -525,7 +572,8 @@
     "totalBeds": 4,
     "occupiedBeds": 0,
     "vacantBeds": 4,
-    "status": "available"
+    "status": "available",
+    "acType": "Non A/C"
   },
   {
     "id": "room-509",
@@ -536,7 +584,8 @@
     "totalBeds": 4,
     "occupiedBeds": 0,
     "vacantBeds": 4,
-    "status": "available"
+    "status": "available",
+    "acType": "A/C"
   },
   {
     "id": "room-510",
@@ -547,6 +596,7 @@
     "totalBeds": 4,
     "occupiedBeds": 0,
     "vacantBeds": 4,
-    "status": "available"
+    "status": "available",
+    "acType": "Non A/C"
   }
 ]

@@ -32,7 +32,7 @@ const hotelSlice = createSlice({
       recalcStats(state)
     },
     addRoom: (state, action) => {
-      const { floorNumber, roomNumber, numberOfBeds, bedType, costPerBed, costOfBed } = action.payload
+      const { floorNumber, roomNumber, numberOfBeds, bedType, costPerBed, costOfBed, acType } = action.payload
       const floor = state.floors.find((f) => f.number === Number(floorNumber))
       const floorId = floor?.id || `floor-${floorNumber}`
       const roomId = `room-${roomNumber}-${Date.now()}`
@@ -47,6 +47,7 @@ const hotelSlice = createSlice({
         roomNumber: String(roomNumber),
         roomType: type,
         bedType: type,
+        acType: acType || 'Non A/C',
         totalBeds: bedCount,
         occupiedBeds: 0,
         vacantBeds: bedCount,
@@ -75,7 +76,7 @@ const hotelSlice = createSlice({
       if (index === -1) return
 
       const prev = state.rooms[index]
-      const { floorNumber, roomNumber, numberOfBeds, bedType, costPerBed, costOfBed } = action.payload
+      const { floorNumber, roomNumber, numberOfBeds, bedType, costPerBed, costOfBed, acType } = action.payload
       const floor = state.floors.find((f) => f.number === Number(floorNumber))
       const floorId = floor?.id || prev.floorId
       const type = bedType || prev.bedType || prev.roomType || 'Standard'
@@ -88,6 +89,7 @@ const hotelSlice = createSlice({
         roomNumber: String(roomNumber),
         roomType: type,
         bedType: type,
+        acType: acType || prev.acType || 'Non A/C',
         totalBeds: Number(numberOfBeds) || prev.totalBeds,
         costPerBed: cost,
       }

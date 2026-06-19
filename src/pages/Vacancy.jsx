@@ -41,11 +41,6 @@ const Vacancy = () => {
 
   return (
     <PageTransition className="page-container">
-      <div className="page-header">
-        <h2 className="section-title">Vacancy</h2>
-        <p className="page-subtitle">{tableRows.length} vacant beds available</p>
-      </div>
-
       <div className="flex flex-wrap items-end gap-3 mb-5">
         <TextField label="Floor Number" value={floorFilter} onChange={(e) => setFloorFilter(e.target.value)} sx={filterFieldSx} />
         <TextField label="Room Number" value={roomFilter} onChange={(e) => setRoomFilter(e.target.value)} sx={filterFieldSx} />

@@ -26,11 +26,6 @@ const Settings = () => {
   return (
     <PageTransition className="page-container">
         <div className="max-w-3xl mx-auto space-y-6">
-          <div className="mb-2">
-            <h2 className="section-title">Settings</h2>
-            <p className="text-slate-500 mt-1">Configure hotel information and preferences</p>
-          </div>
-
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

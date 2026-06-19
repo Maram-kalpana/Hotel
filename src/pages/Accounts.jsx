@@ -88,13 +88,6 @@ const Accounts = () => {
 
   return (
     <PageTransition className="page-container">
-      <div className="page-header">
-        <h2 className="section-title">Accounts</h2>
-        <p className="page-subtitle">
-          {filterMode === 'day' ? 'Daily' : 'Monthly'} income · {formatCurrency(totalAmount)} total
-        </p>
-      </div>
-
       <div className="flex flex-wrap items-end gap-3 mb-5">
         <TextField select label="View By" value={filterMode} onChange={(e) => setFilterMode(e.target.value)} sx={filterFieldSx}>
           <MenuItem value="day">Day</MenuItem>

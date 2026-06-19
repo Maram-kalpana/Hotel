@@ -54,11 +54,6 @@ const Customers = () => {
 
   return (
     <PageTransition className="page-container">
-      <div className="page-header">
-        <h2 className="section-title">Customers</h2>
-        <p className="page-subtitle">{filtered.length} active customers</p>
-      </div>
-
       <div className="flex flex-wrap items-end gap-3 mb-5">
         <TextField label="Search Customer" value={search} onChange={(e) => setSearch(e.target.value)} sx={filterFieldSx} />
         <DatePickerField label="Check-In Date" value={checkInDate} onChange={setCheckInDate} sx={filterFieldSx} />
